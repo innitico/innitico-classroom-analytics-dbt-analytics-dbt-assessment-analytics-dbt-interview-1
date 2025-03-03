@@ -2,6 +2,6 @@ provider_pipeline:
   outputs:
     dev:
       type: duckdb
-      path: /tmp/dev.duckdb
+      path: C:\Users\AdityaT3\OneDrive - CitiusTech\Documents\KyrussAssessment\GitCloneRepo\analytics-dbt-assessment-CT-adityat\tmp\dev.duckdb
       threads: 1
   target: dev
