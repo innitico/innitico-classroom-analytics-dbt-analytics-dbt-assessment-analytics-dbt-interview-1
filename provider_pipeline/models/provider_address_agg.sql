@@ -13,19 +13,16 @@ addresses as (
 
 joined_addresses as (
     select 
-        pa.customer_id,
+        pa.id,
         json_group_array(
             json_object(
-                'address_id', a.address_id,
-                'street', a.street,
-                'city', a.city,
-                'state', a.state,
-                'zip', a.zip
+                'address_id', a.id,
+                'street', a.street
             )
         ) as addresses
     from provider_addresses pa
-    left join addresses a on pa.address_id = a.address_id
-    group by pa.customer_id
+    left join addresses a on pa.address_id = a.id
+    group by pa.id
 ),
 
 -- providers with no addresses are available
@@ -37,7 +34,7 @@ final as (
         p.degrees,
         coalesce(ja.addresses, json_array()) as addresses
     from providers p
-    left join joined_addresses ja on p.customer_id = ja.customer_id
+    left join joined_addresses ja on p.customer_id = ja.id
 )
 
-select * from final;
+select * from final
